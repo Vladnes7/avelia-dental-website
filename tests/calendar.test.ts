@@ -1,6 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { moscowDate, calendarDays, slotsFor, validSelection, monthGrid } from '../src/lib/calendar';
+import { moscowDate, calendarDays, slotsFor, validSelection, monthGrid,doctorSchedules,doctorIds } from '../src/lib/calendar';
+test('календарь и ближайший приём соблюдают рабочие дни каждого врача',()=>{
+ const now=new Date('2026-10-10T06:00:00Z');
+ for(const doctor of doctorIds)for(const day of calendarDays(now)){
+  const weekday=new Date(day.date+'T12:00:00Z').getUTCDay();
+  const slots=slotsFor(day.date,doctor,now);
+  if(!doctorSchedules[doctor].includes(weekday))assert.equal(slots.length,0);
+  else assert.ok(slots.length>0);
+ }
+});
 test('московская дата пересекает полночь независимо от компьютера', () => {
   assert.equal(moscowDate(new Date('2026-10-10T22:30:00Z')), '2026-10-11');
 });
@@ -10,7 +19,8 @@ test('30 дней, включая смену месяца и года', () => {
 });
 test('прошедшие сегодня часы отсутствуют, занятый слот не выбирается', () => {
   const now = new Date('2026-10-10T15:45:00Z');
-  const slots = slotsFor('2026-10-10', 'elena-mironova', now);
+  const slots = slotsFor('2026-10-10', 'pavel-krylov', now);
+  assert.ok(slots.length>0);
   assert.ok(slots.every(s => s.time > '18:45'));
   assert.equal(validSelection({date:'2026-10-09',time:'12:00',doctor:'elena-mironova'}, now), false);
   assert.equal(validSelection({date:'2026-10-11',time:'03:00',doctor:'elena-mironova'}, now), false);

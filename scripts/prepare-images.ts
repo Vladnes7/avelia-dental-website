@@ -24,6 +24,6 @@ async function main(){
  const height=Math.max(166,Math.ceil(files.length/8)*166);
  const labels=Buffer.from(`<svg width="1440" height="${height}">${files.map((f,i)=>`<text x="${i%8*180+8}" y="${Math.floor(i/8)*166+158}" font-family="Arial" font-size="13" fill="#101f23">${f.slice(0,-4)}</text>`).join('')}</svg>`);
  await sharp({create:{width:1440,height,channels:3,background:'#e7ebea'}}).composite([...thumbs,{input:labels,left:0,top:0}]).png().toFile(path.join(root,'_материалы/фото/contact-sheet.png'));
- console.log(`Prepared ${plan.assets.filter((a:{status:string})=>a.status==='generated').length} original photographs and ${files.length-plan.assets.length} hero layers; plan ${plan.status}`);
+ console.log(`Prepared ${plan.assets.filter((a:{status:string})=>a.status==='generated').length} planned photographs, ${files.filter(f=>/^R\d/.test(f)).length} testimonial portraits, ${files.filter(f=>f==='JAW.png').length} transparent aligner model and ${files.filter(f=>f.startsWith('H01-')).length} depth layers; plan ${plan.status}`);
 }
 main().catch(e=>{console.error(e);process.exit(1)});

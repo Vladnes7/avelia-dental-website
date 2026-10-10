@@ -5,9 +5,10 @@
     "value": 4.9,
     "display": "4,9",
     "scale": 5,
-    "reviewCount": 8,
+    "reviewCount": 1460,
     "source": "own-fictional-demo",
-    "computedMean": 4.875
+    "computedMean": 4.875,
+    "featuredCount": 8
   },
   "address": {
     "city": "Москва",
