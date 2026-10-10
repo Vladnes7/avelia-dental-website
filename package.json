@@ -1,0 +1,6 @@
+{
+  "name": "avelia-dental", "version": "1.0.0", "private": true,
+  "scripts": {"dev":"next dev --hostname 127.0.0.1", "build":"next build", "start":"next start --hostname 127.0.0.1", "test":"node --import tsx --test tests/*.test.ts", "typecheck":"tsc --noEmit", "images":"node --import tsx scripts/prepare-images.ts"},
+  "dependencies": {"next":"latest", "react":"latest", "react-dom":"latest", "motion":"latest", "lucide-react":"latest", "sharp":"latest"},
+  "devDependencies": {"typescript":"latest", "tsx":"latest", "@types/node":"latest", "@types/react":"latest", "@types/react-dom":"latest"}
+}

@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.DS_Store
+.superpowers/
+_материалы/фото/исходники/
+_материалы/фото/первая-серия/
+_материалы/фото/contact-sheet.png
+public/images/
