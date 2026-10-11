@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import {Children,isValidElement,useRef,type ReactNode} from 'react';
-import {motion,useReducedMotion,useScroll,useTransform} from 'motion/react';
+import {Children,isValidElement,type ReactNode} from 'react';
+import {motion,useReducedMotion} from 'motion/react';
 const ease=[0.23,1,0.32,1] as const;
 export function AnimatedText({children}:{children:ReactNode}){
  const reduce=useReducedMotion();let index=0;
@@ -14,8 +14,8 @@ export function AnimatedText({children}:{children:ReactNode}){
  return <>{parts(children)}</>;
 }
 export function Photo({id,alt='',className='',priority=false,sizes='(max-width: 700px) 100vw, 50vw'}:{id:string;alt?:string;className?:string;priority?:boolean;sizes?:string}){
- const reduce=useReducedMotion(),ref=useRef<HTMLDivElement>(null);const {scrollYProgress}=useScroll({target:ref,offset:['start end','end start']});const scale=useTransform(scrollYProgress,[0,.5,1],[1.14,1,1.06]);
- return <div ref={ref} className={'photo '+className}><motion.div className="photo-image" style={{scale:reduce?1:scale}} initial={reduce?false:{clipPath:'inset(8% 4% 8% 4% round 24px)'}} whileInView={{clipPath:'inset(0% 0% 0% 0% round 0px)'}} viewport={{once:true,amount:.12}} transition={{duration:reduce?0:1,ease}}><Image src={'/images/'+id+'.webp?v=2'} alt={alt} fill sizes={sizes} priority={priority}/></motion.div></div>;
+ const reduce=useReducedMotion();
+ return <div className={'photo '+className}><motion.div className="photo-image" initial={reduce?false:{opacity:0}} whileInView={{opacity:1}} viewport={{once:true,amount:.12}} transition={{duration:reduce?0:.45,ease}}><Image src={'/images/'+id+'.webp?v=2'} alt={alt} fill sizes={sizes} priority={priority}/></motion.div></div>;
 }
 export function Arrow({small=false}:{small?:boolean}){void small;return null;}
 export function Button({href,children,light=false,className=''}:{href:string;children:ReactNode;light?:boolean;className?:string}){return <Link className={'button '+(light?'button-light ':'')+className} href={href}><span>{children}</span></Link>;}
